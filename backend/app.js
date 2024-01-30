@@ -4,14 +4,18 @@ const mongoose = require("mongoose");
 const stuffRoutes = require("./routes/stuff");
 const userRoutes = require("./routes/user");
 const path = require("path");
+const dotenv = require("dotenv");
 
 const app = express();
+dotenv.config();
+
+const connectionString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.tpbqupg.mongodb.net/test?retryWrites=true&w=majority`;
 
 mongoose
-  .connect(
-    "mongodb+srv://lywen:test@cluster0.tpbqupg.mongodb.net/test?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
