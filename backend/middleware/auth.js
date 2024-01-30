@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
     req.auth = {
       userId: userId,
     };
+    next(); // on passe l'exécution à la prochaine fonction
   } catch (error) {
     res.status(401).json({ error: error | "Requête non authentifiée !" }); // on renvoie une erreur au frontend
   }

@@ -23,10 +23,10 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email }) // on recherche l'utilisateur dans la BDD
     .then((user) => {
-      if (user === null) {
+      if (!user) {
         return res
           .status(401)
-          .json({ error: "Paire identifiant / mot de passe incorrect" }); // on renvoie une erreur au frontend
+          .json({ error: "Paire identifiant / mot de passe incorrect" });
       } else {
         bcrypt
           .compare(req.body.password, user.password) // on compare le mot de passe mentionné dans le formulaire avec le hash enregistré dans la BDD
